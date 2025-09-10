@@ -1,7 +1,20 @@
-# TODO: Link Back and Signout Buttons
+# DonorDashboard UI Improvements
 
-- [x] Update IndividualRegistration.jsx: Add onClick to back button to navigate('/')
-- [x] Update HospitalRegistration.jsx: Add onClick to back button to navigate('/')
-- [x] Update AdminLogin.jsx: Add onClick to back button to navigate('/')
-- [x] Update DonorDashboard.jsx: Add onClick handler to logout button (clear token, navigate('/'))
-- [x] Update HospitalDashboard.jsx: Add onClick handler to logout button (clear token, navigate('/'))
+## Completed
+- [x] Analyze current DonorDashboard component
+- [x] Create improvement plan
+
+## In Progress
+- [x] Enhance header with better styling and notifications dropdown
+- [x] Improve dashboard stats with better visuals and animations
+- [x] Add search/filter functionality to blood requests
+- [x] Enhance card designs with gradients and shadows
+- [x] Add hover effects and transitions
+- [ ] Improve typography and spacing for desktop/tablet
+- [ ] Add data visualization for donation history
+- [ ] Optimize layouts for desktop and tablet screens
+
+## Pending
+- [ ] Test UI improvements
+- [ ] Add loading states
+- [ ] Implement interactive elements
