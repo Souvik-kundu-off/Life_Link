@@ -2,8 +2,11 @@ import React from 'react'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './ui/card'
 import { Button } from './ui/button'
 import { Heart, Building2, Shield, Users, Droplets, MapPin } from 'lucide-react'
+import { Link, useNavigate } from 'react-router-dom'
 
 export default function LandingPage() {
+  const navigate = useNavigate()
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-red-50 to-pink-50">
       {/* Header */}
@@ -35,11 +38,11 @@ export default function LandingPage() {
             more efficient and accessible. Every donation can save up to three lives.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" className="bg-red-600 hover:bg-red-700">
+            <Button size="lg" className="bg-red-600 hover:bg-red-700" onClick={() => navigate('/ireg')}>
               <Heart className="mr-2 h-5 w-5" />
               Start Donating
             </Button>
-            <Button size="lg" variant="outline">
+            <Button size="lg" variant="outline" onClick={() => navigate('/')}>
               Learn More
             </Button>
           </div>
@@ -80,7 +83,7 @@ export default function LandingPage() {
                     Track donation history
                   </li>
                 </ul>
-                <Button className="w-full bg-red-600 hover:bg-red-700">
+                <Button className="w-full bg-red-600 hover:bg-red-700" onClick={() => navigate('/ireg')}>
                   Join as Donor
                 </Button>
               </CardContent>
@@ -111,7 +114,7 @@ export default function LandingPage() {
                     Track requests & matches
                   </li>
                 </ul>
-                <Button className="w-full bg-blue-600 hover:bg-blue-700">
+                <Button className="w-full bg-blue-600 hover:bg-blue-700" onClick={() => navigate('/hreg')}>
                   Hospital Access
                 </Button>
               </CardContent>
@@ -142,7 +145,7 @@ export default function LandingPage() {
                     Platform oversight
                   </li>
                 </ul>
-                <Button className="w-full bg-green-600 hover:bg-green-700">
+                <Button className="w-full bg-green-600 hover:bg-green-700" onClick={() => navigate('/alogin')}>
                   Admin Panel
                 </Button>
               </CardContent>
@@ -191,9 +194,9 @@ export default function LandingPage() {
             <div>
               <h3 className="font-semibold mb-4">Platform</h3>
               <ul className="space-y-2 text-gray-400">
-                <li><a href="#" className="hover:text-white">For Donors</a></li>
-                <li><a href="#" className="hover:text-white">For Hospitals</a></li>
-                <li><a href="#" className="hover:text-white">For Recipients</a></li>
+                <li><a href="/ireg" className="hover:text-white">For Donors</a></li>
+                <li><a href="/hreg" className="hover:text-white">For Hospitals</a></li>
+                <li><a href="/alogin" className="hover:text-white">For Admin</a></li>
               </ul>
             </div>
             <div>
