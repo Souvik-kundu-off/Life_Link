@@ -1,4 +1,7 @@
-- [x] Remove hospitalSearch and userSearch state variables from AdminDashboard.jsx
-- [x] Remove search input UI from Hospital Directory tab
-- [x] Remove search input UI from Users tab
-- [x] Update rendering to use full lists without filtering
+# TODO: Link Back and Signout Buttons
+
+- [x] Update IndividualRegistration.jsx: Add onClick to back button to navigate('/')
+- [x] Update HospitalRegistration.jsx: Add onClick to back button to navigate('/')
+- [x] Update AdminLogin.jsx: Add onClick to back button to navigate('/')
+- [x] Update DonorDashboard.jsx: Add onClick handler to logout button (clear token, navigate('/'))
+- [x] Update HospitalDashboard.jsx: Add onClick handler to logout button (clear token, navigate('/'))

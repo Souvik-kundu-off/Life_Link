@@ -40,9 +40,9 @@ export default function AdminLogin() {
   return (
     <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
       <div className="w-full max-w-md">
-        <Button 
-          variant="outline" 
-          
+        <Button
+          variant="outline"
+          onClick={() => navigate('/')}
           className="mb-6 flex items-center space-x-2"
         >
           <ArrowLeft className="h-4 w-4" />

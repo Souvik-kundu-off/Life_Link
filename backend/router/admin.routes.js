@@ -41,8 +41,9 @@ arouter.post("/login", async (req, res) => {
     if (!p) {
         return res.status(401).json({ message: "Username or Password is incorrect" });
     }
-    generateToken(u)
-    return res.status(200).json({ message: "Login Success", token: generateToken(u) });
+    u.role = 'admin'; // Set role for token generation
+    const token = generateToken(u);
+    return res.status(200).json({ message: "Login Success", token: token });
     
 
 

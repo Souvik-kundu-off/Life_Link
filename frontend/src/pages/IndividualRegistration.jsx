@@ -47,9 +47,9 @@ export default function IndividualRegistration({ onLogin, onBack }) {
   return (
     <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
       <div className="w-full max-w-md">
-        <Button 
-          variant="outline" 
-          onClick={onBack}
+        <Button
+          variant="outline"
+          onClick={() => navigate('/')}
           className="mb-6 flex items-center space-x-2"
         >
           <ArrowLeft className="h-4 w-4" />
@@ -77,12 +77,12 @@ export default function IndividualRegistration({ onLogin, onBack }) {
               <TabsContent value="login" className="space-y-4">
                 <form className="space-y-4" onSubmit={lform.handleSubmit(Login)}>
                   <div className="space-y-2">
-                    <label htmlFor="phone_number">Email</label>
+                    <label htmlFor="email">Email</label>
                     <Input
-                      id="phone_number"
-                      type="number"
-                      placeholder="xxx-xxx-xxxx"
-                      {...lform.register("phone_number", { required: true })}
+                      id="email"
+                      type="email"
+                      placeholder="donor@example.com"
+                      {...lform.register("email", { required: true })}
                     />
                   </div>
                   

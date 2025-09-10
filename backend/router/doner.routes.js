@@ -37,21 +37,20 @@ drouter.post("/login",async (req,res) => {
     const body = req.body
 
     console.log(body);
-    
-    const u = await user.findOne({phone_number:body.phone_number})
-    console.log(u.role);
-    
+
+    const u = await user.findOne({email:body.email})
+    console.log(u ? u.role : 'User not found');
+
     if (!u) {
-         res.status(401).json({"message":"Username or Pasword is incorrect"})
-    } else {
-        const p = await bcrypt.compare(body.password,u.password)
-                if (!p) {
-                    res.status(401).json({"message":"Username or Pasword is incorrect"})
-                } else {
-                    res.status(200).json({"message":"Login Success","token":generateToken(u)})
-                }
-        
+         return res.status(401).json({"message":"Email or Password is incorrect"})
     }
+
+    const p = await bcrypt.compare(body.password,u.password)
+    if (!p) {
+        return res.status(401).json({"message":"Email or Password is incorrect"})
+    }
+
+    res.status(200).json({"message":"Login Success","token":generateToken(u)})
 })
 
 drouter.get("/getuser",validateToken("user"),async(req,res)=>{
