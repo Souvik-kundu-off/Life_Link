@@ -1,0 +1,4 @@
+- [x] Remove hospitalSearch and userSearch state variables from AdminDashboard.jsx
+- [x] Remove search input UI from Hospital Directory tab
+- [x] Remove search input UI from Users tab
+- [x] Update rendering to use full lists without filtering

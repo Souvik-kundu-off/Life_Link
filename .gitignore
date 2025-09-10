@@ -1,0 +1,46 @@
+# Node.js
+node_modules/
+.env
+npm-debug.log
+dist/
+build/
+
+# Logs
+logs/
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Vite
+.vite
+
+# VS Code
+.vscode/
+
+# Tailwind
+*.css.d.ts
+
+# Misc
+*.swp
+*.swo
+
+# Production
+frontend/dist/
+backend/dist/
+
+# IDEs
+.idea/
+*.iml
+
+# Coverage
+coverage/
+
+# Others
+*.local
+*.cache
+
+# Ignore backend database files
+backend/db/*.sqlite
+backend/db/*.db
