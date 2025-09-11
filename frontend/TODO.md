@@ -17,9 +17,9 @@
 - [x] Enhance mobile responsiveness with improved grid layouts
 - [x] Add hover effects and animations
 - [x] Improve accessibility with better contrast and ARIA labels
-
-## In Progress
-- [ ] Implement loading states and error handling
+- [x] Implement loading states and error handling
+- [x] Fix modal sizes to ensure submit buttons are visible
+- [x] Add modal scrolling for better content visibility
 
 ## Pending Tasks
 - [ ] Add data visualization components (charts for trends)

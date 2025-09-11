@@ -141,42 +141,6 @@ export default function HospitalDashboard() {
               </div>
             </div>
             <div className="flex items-center space-x-6">
-              <button
-                className={`flex items-center space-x-1 px-3 py-2 rounded-md text-sm font-medium ${
-                  activeTab === 'overview' ? 'bg-blue-600 text-white' : 'text-gray-700 hover:bg-gray-100'
-                }`}
-                onClick={() => setActiveTab('overview')}
-              >
-                <Home className="h-5 w-5" />
-                <span>Overview</span>
-              </button>
-              <button
-                className={`flex items-center space-x-1 px-3 py-2 rounded-md text-sm font-medium ${
-                  activeTab === 'donors' ? 'bg-blue-600 text-white' : 'text-gray-700 hover:bg-gray-100'
-                }`}
-                onClick={() => setActiveTab('donors')}
-              >
-                <UserPlus className="h-5 w-5" />
-                <span>Donors</span>
-              </button>
-              <button
-                className={`flex items-center space-x-1 px-3 py-2 rounded-md text-sm font-medium ${
-                  activeTab === 'recipients' ? 'bg-blue-600 text-white' : 'text-gray-700 hover:bg-gray-100'
-                }`}
-                onClick={() => setActiveTab('recipients')}
-              >
-                <UserCheck className="h-5 w-5" />
-                <span>Recipients</span>
-              </button>
-              <button
-                className={`flex items-center space-x-1 px-3 py-2 rounded-md text-sm font-medium ${
-                  activeTab === 'requests' ? 'bg-blue-600 text-white' : 'text-gray-700 hover:bg-gray-100'
-                }`}
-                onClick={() => setActiveTab('requests')}
-              >
-                <ClipboardList className="h-5 w-5" />
-                <span>Blood Requests</span>
-              </button>
               <Button variant="ghost" size="sm" className="ml-4">
                 <Bell className="h-4 w-4" />
               </Button>
