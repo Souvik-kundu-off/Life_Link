@@ -34,10 +34,13 @@ hrouter.post("/register",async(req,res)=>{
 })
 hrouter.post("/login",async (req,res) => {
     const body = req.body
-    const u = await hospital.findOne({phone_number:body.phone_number})
+    const u = await hospital.findOne({email:body.email})
     if(!u){
         res.status(401).json({"message":"Username or Pasword is incorrect"})
     }else{
+        if (!u.isValidated) {
+            return res.status(403).json({"message":"Hospital registration pending admin approval"});
+        }
         const p = await bcrypt.compare(body.password,u.password)
         if (!p) {
             res.status(401).json({"message":"Username or Pasword is incorrect"})

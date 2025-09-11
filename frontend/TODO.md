@@ -1,20 +1,6 @@
-# DonorDashboard UI Improvements
+# Hospital Registration Approval Fix
 
-## Completed
-- [x] Analyze current DonorDashboard component
-- [x] Create improvement plan
-
-## In Progress
-- [x] Enhance header with better styling and notifications dropdown
-- [x] Improve dashboard stats with better visuals and animations
-- [x] Add search/filter functionality to blood requests
-- [x] Enhance card designs with gradients and shadows
-- [x] Add hover effects and transitions
-- [ ] Improve typography and spacing for desktop/tablet
-- [ ] Add data visualization for donation history
-- [ ] Optimize layouts for desktop and tablet screens
-
-## Pending
-- [ ] Test UI improvements
-- [ ] Add loading states
-- [ ] Implement interactive elements
+## Tasks
+- [x] Update backend hospital login route to check isValidated flag
+- [x] Update frontend login handler to display approval pending message
+- [x] Update frontend registration handler to show pending approval instead of navigating to dashboard

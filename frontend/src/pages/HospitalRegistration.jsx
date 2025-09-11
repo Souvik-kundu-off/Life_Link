@@ -29,9 +29,10 @@ export default function HospitalRegistrationPage() {
     try {
       console.log("Register Data:", data);
       const res = await axios.post("http://localhost:5000/hospital/register", data);
-      alert("Hospital registered successfully!");
+      alert("Hospital registered successfully! Please wait for admin approval before logging in.");
       console.log("Response:", res.data);
-      navigate('/hdash');
+      // Do not navigate to dashboard immediately after registration
+      // navigate('/hdash');
     } catch (err) {
       console.error(err);
       alert("Registration failed. Please try again.");
@@ -46,6 +47,7 @@ export default function HospitalRegistrationPage() {
       if (res.status === 200) {
         localStorage.setItem('token', res.data.token);
         alert("Login successful!");
+        navigate('/hdash');
 
         console.log("Response:", res.data);
       } else {
@@ -53,7 +55,11 @@ export default function HospitalRegistrationPage() {
       }
     } catch (err) {
       console.error(err);
-      alert("Login failed. Check your credentials.");
+      if (err.response && err.response.status === 403) {
+        alert("Login failed: Your hospital registration is pending admin approval.");
+      } else {
+        alert("Login failed. Check your credentials.");
+      }
     }
   };
 
@@ -90,12 +96,12 @@ export default function HospitalRegistrationPage() {
                   onSubmit={lform.handleSubmit(loginSubmit)}
                 >
                   <div className="space-y-2">
-                    <label htmlFor="phoneNumber">Phone-Number</label>
+                    <label htmlFor="email">Email</label>
                     <Input
-                      id="phoneNumber"
-                      type="number"
-                      placeholder="xxx-xxx-xxxx"
-                      {...lform.register("phone_number", { required: true })}
+                      id="email"
+                      type="email"
+                      placeholder="staff@hospital.com"
+                      {...lform.register("email", { required: true })}
                     />
                   </div>
 
