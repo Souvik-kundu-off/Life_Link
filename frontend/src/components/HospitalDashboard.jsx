@@ -140,6 +140,55 @@ export default function HospitalDashboard() {
                 <p className="text-sm text-gray-500">Blood Bank Management</p>
               </div>
             </div>
+
+            {/* Tab Navigation in Navbar */}
+            <div className="hidden md:flex items-center space-x-1 bg-gray-50 px-2 py-1 rounded-lg">
+              <button
+                className={`flex items-center space-x-2 px-3 py-2 rounded-md text-sm font-medium transition-all duration-200 ${
+                  activeTab === 'overview'
+                    ? 'bg-blue-600 text-white shadow-sm'
+                    : 'text-gray-700 hover:bg-gray-200 hover:text-gray-900'
+                }`}
+                onClick={() => setActiveTab('overview')}
+              >
+                <Home className="h-4 w-4" />
+                <span>Overview</span>
+              </button>
+              <button
+                className={`flex items-center space-x-2 px-3 py-2 rounded-md text-sm font-medium transition-all duration-200 ${
+                  activeTab === 'donors'
+                    ? 'bg-blue-600 text-white shadow-sm'
+                    : 'text-gray-700 hover:bg-gray-200 hover:text-gray-900'
+                }`}
+                onClick={() => setActiveTab('donors')}
+              >
+                <UserPlus className="h-4 w-4" />
+                <span>Donors</span>
+              </button>
+              <button
+                className={`flex items-center space-x-2 px-3 py-2 rounded-md text-sm font-medium transition-all duration-200 ${
+                  activeTab === 'recipients'
+                    ? 'bg-blue-600 text-white shadow-sm'
+                    : 'text-gray-700 hover:bg-gray-200 hover:text-gray-900'
+                }`}
+                onClick={() => setActiveTab('recipients')}
+              >
+                <UserCheck className="h-4 w-4" />
+                <span>Recipients</span>
+              </button>
+              <button
+                className={`flex items-center space-x-2 px-3 py-2 rounded-md text-sm font-medium transition-all duration-200 ${
+                  activeTab === 'requests'
+                    ? 'bg-blue-600 text-white shadow-sm'
+                    : 'text-gray-700 hover:bg-gray-200 hover:text-gray-900'
+                }`}
+                onClick={() => setActiveTab('requests')}
+              >
+                <ClipboardList className="h-4 w-4" />
+                <span>Blood Requests</span>
+              </button>
+            </div>
+
             <div className="flex items-center space-x-6">
               <Button variant="ghost" size="sm" className="ml-4">
                 <Bell className="h-4 w-4" />
@@ -158,12 +207,6 @@ export default function HospitalDashboard() {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <Tabs value={activeTab} className="space-y-6">
-          <TabsList className="grid w-full grid-cols-4">
-            <TabsTrigger value="overview" onClick={() => setActiveTab('overview')}>Overview</TabsTrigger>
-            <TabsTrigger value="donors" onClick={() => setActiveTab('donors')}>Donors</TabsTrigger>
-            <TabsTrigger value="recipients" onClick={() => setActiveTab('recipients')}>Recipients</TabsTrigger>
-            <TabsTrigger value="requests" onClick={() => setActiveTab('requests')}>Blood Requests</TabsTrigger>
-          </TabsList>
 
           <TabsContent value="overview" className="space-y-6">
             {/* Stats Cards */}
