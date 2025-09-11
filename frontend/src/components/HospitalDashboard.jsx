@@ -8,6 +8,9 @@ import { StatCard } from './ui/stat-card'
 import { DataList } from './ui/data-list'
 import { ProgressBar } from './ui/progress-bar'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from './ui/tabs'
+import AddDonorForm from './AddDonorForm'
+import AddRecipientForm from './AddRecipientForm'
+import AddBloodRequestForm from './AddBloodRequestForm'
 import {
   Heart,
   Users,
@@ -38,9 +41,90 @@ export default function HospitalDashboard() {
   const [activeTab, setActiveTab] = useState('overview')
   const navigate = useNavigate()
 
+  // Modal states
+  const [showAddDonorModal, setShowAddDonorModal] = useState(false)
+  const [showAddRecipientModal, setShowAddRecipientModal] = useState(false)
+  const [showAddRequestModal, setShowAddRequestModal] = useState(false)
+
   const handleLogout = () => {
     localStorage.removeItem('token')
     navigate('/')
+  }
+
+  // Form submission handlers
+  const handleAddDonor = async (donorData) => {
+    try {
+      const token = localStorage.getItem('token')
+      const response = await fetch('http://localhost:5000/hospital/adddoner', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify(donorData)
+      })
+
+      if (response.ok) {
+        alert('Donor added successfully!')
+        // Here you could refresh the donor list or update state
+      } else {
+        const error = await response.json()
+        alert(`Error: ${error.message}`)
+      }
+    } catch (error) {
+      console.error('Error adding donor:', error)
+      alert('Failed to add donor. Please try again.')
+    }
+  }
+
+  const handleAddRecipient = async (recipientData) => {
+    try {
+      const token = localStorage.getItem('token')
+      const response = await fetch('http://localhost:5000/hospital/addreciever', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify(recipientData)
+      })
+
+      if (response.ok) {
+        alert('Recipient added successfully!')
+        // Here you could refresh the recipient list or update state
+      } else {
+        const error = await response.json()
+        alert(`Error: ${error.message}`)
+      }
+    } catch (error) {
+      console.error('Error adding recipient:', error)
+      alert('Failed to add recipient. Please try again.')
+    }
+  }
+
+  const handleAddBloodRequest = async (requestData) => {
+    try {
+      const token = localStorage.getItem('token')
+      const response = await fetch('http://localhost:5000/hospital/addreciever', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify(requestData)
+      })
+
+      if (response.ok) {
+        alert('Blood request submitted successfully!')
+        // Here you could refresh the request list or update state
+      } else {
+        const error = await response.json()
+        alert(`Error: ${error.message}`)
+      }
+    } catch (error) {
+      console.error('Error submitting request:', error)
+      alert('Failed to submit request. Please try again.')
+    }
   }
 
   return (
@@ -274,8 +358,7 @@ export default function HospitalDashboard() {
                 console.log('Filter donors clicked')
               }}
               onAdd={() => {
-                // Implement add donor functionality here
-                alert('Add Donor button clicked')
+                setShowAddDonorModal(true)
               }}
               addButtonText="Add Donor"
               renderItem={(donor) => (
@@ -336,8 +419,7 @@ export default function HospitalDashboard() {
                 console.log('Filter recipients clicked')
               }}
               onAdd={() => {
-                // Implement add recipient functionality here
-                alert('Add Recipient button clicked')
+                setShowAddRecipientModal(true)
               }}
               addButtonText="Add Recipient"
               renderItem={(recipient) => (
@@ -398,8 +480,7 @@ export default function HospitalDashboard() {
                 console.log('Filter requests clicked')
               }}
               onAdd={() => {
-                // Implement add request functionality here
-                alert('New Request button clicked')
+                setShowAddRequestModal(true)
               }}
               addButtonText="New Request"
               renderItem={(request) => (
@@ -491,6 +572,25 @@ export default function HospitalDashboard() {
           </TabsContent>
         </Tabs>
       </div>
+
+      {/* Modals */}
+      <AddDonorForm
+        isOpen={showAddDonorModal}
+        onClose={() => setShowAddDonorModal(false)}
+        onSubmit={handleAddDonor}
+      />
+
+      <AddRecipientForm
+        isOpen={showAddRecipientModal}
+        onClose={() => setShowAddRecipientModal(false)}
+        onSubmit={handleAddRecipient}
+      />
+
+      <AddBloodRequestForm
+        isOpen={showAddRequestModal}
+        onClose={() => setShowAddRequestModal(false)}
+        onSubmit={handleAddBloodRequest}
+      />
     </div>
   )
 }
