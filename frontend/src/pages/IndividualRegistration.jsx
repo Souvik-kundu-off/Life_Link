@@ -97,7 +97,7 @@ export default function IndividualRegistration({ onLogin, onBack }) {
                   
                   <Button type="submit" className="w-full bg-red-600 hover:bg-red-700">
                     <LogIn className="mr-2 h-4 w-4" />
-                    Login (Connect Backend)
+                    Login
                   </Button>
                 </form>
               </TabsContent>
@@ -204,17 +204,11 @@ export default function IndividualRegistration({ onLogin, onBack }) {
                   </div>
                   
                   <Button type="submit" className="w-full bg-red-600 hover:bg-red-700">
-                    Register (Connect Backend)
+                    Register
                   </Button>
                 </form>
               </TabsContent>
             </Tabs>
-            
-            <div className="mt-6 p-4 bg-red-50 rounded-lg">
-              <p className="text-sm text-red-700">
-                Ready for backend integration. Connect your Node.js/Express.js/MongoDB backend to enable registration and authentication.
-              </p>
-            </div>
           </CardContent>
         </Card>
       </div>

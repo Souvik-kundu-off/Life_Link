@@ -205,14 +205,6 @@ export default function HospitalRegistrationPage() {
                 </form>
               </TabsContent>
             </Tabs>
-
-            <div className="mt-6 p-4 bg-blue-50 rounded-lg">
-              <p className="text-sm text-blue-700">
-                Backend ready: connect your Node.js/Express/MongoDB API at
-                <code className="ml-1">/api/hospital/register</code> and
-                <code className="ml-1">/api/hospital/login</code>.
-              </p>
-            </div>
           </CardContent>
         </Card>
       </div>
