@@ -3,8 +3,11 @@ import { useNavigate } from 'react-router'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './ui/card'
 import { Button } from './ui/button'
 import { Badge } from './ui/badge'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from './ui/tabs'
 import { Input } from './ui/input'
+import { StatCard } from './ui/stat-card'
+import { DataList } from './ui/data-list'
+import { ProgressBar } from './ui/progress-bar'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from './ui/tabs'
 import {
   Heart,
   Users,
@@ -21,7 +24,14 @@ import {
   Phone,
   Clock,
   CheckCircle,
-  XCircle
+  XCircle,
+  Droplet,
+  TrendingUp,
+  TrendingDown,
+  Home,
+  UserPlus,
+  UserCheck,
+  ClipboardList
 } from 'lucide-react'
 
 export default function HospitalDashboard() {
@@ -35,8 +45,8 @@ export default function HospitalDashboard() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Header */}
-      <header className="bg-white shadow-sm border-b">
+      {/* Navbar */}
+      <nav className="bg-white shadow-sm border-b sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center space-x-4">
@@ -46,8 +56,44 @@ export default function HospitalDashboard() {
                 <p className="text-sm text-gray-500">Blood Bank Management</p>
               </div>
             </div>
-            <div className="flex items-center space-x-4">
-              <Button variant="ghost" size="sm">
+            <div className="flex items-center space-x-6">
+              <button
+                className={`flex items-center space-x-1 px-3 py-2 rounded-md text-sm font-medium ${
+                  activeTab === 'overview' ? 'bg-blue-600 text-white' : 'text-gray-700 hover:bg-gray-100'
+                }`}
+                onClick={() => setActiveTab('overview')}
+              >
+                <Home className="h-5 w-5" />
+                <span>Overview</span>
+              </button>
+              <button
+                className={`flex items-center space-x-1 px-3 py-2 rounded-md text-sm font-medium ${
+                  activeTab === 'donors' ? 'bg-blue-600 text-white' : 'text-gray-700 hover:bg-gray-100'
+                }`}
+                onClick={() => setActiveTab('donors')}
+              >
+                <UserPlus className="h-5 w-5" />
+                <span>Donors</span>
+              </button>
+              <button
+                className={`flex items-center space-x-1 px-3 py-2 rounded-md text-sm font-medium ${
+                  activeTab === 'recipients' ? 'bg-blue-600 text-white' : 'text-gray-700 hover:bg-gray-100'
+                }`}
+                onClick={() => setActiveTab('recipients')}
+              >
+                <UserCheck className="h-5 w-5" />
+                <span>Recipients</span>
+              </button>
+              <button
+                className={`flex items-center space-x-1 px-3 py-2 rounded-md text-sm font-medium ${
+                  activeTab === 'requests' ? 'bg-blue-600 text-white' : 'text-gray-700 hover:bg-gray-100'
+                }`}
+                onClick={() => setActiveTab('requests')}
+              >
+                <ClipboardList className="h-5 w-5" />
+                <span>Blood Requests</span>
+              </button>
+              <Button variant="ghost" size="sm" className="ml-4">
                 <Bell className="h-4 w-4" />
               </Button>
               <Button variant="ghost" size="sm">
@@ -60,7 +106,7 @@ export default function HospitalDashboard() {
             </div>
           </div>
         </div>
-      </header>
+      </nav>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <Tabs value={activeTab} className="space-y-6">
@@ -74,50 +120,78 @@ export default function HospitalDashboard() {
           <TabsContent value="overview" className="space-y-6">
             {/* Stats Cards */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              <Card>
-                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium">Total Donors</CardTitle>
-                  <Users className="h-4 w-4 text-muted-foreground" />
-                </CardHeader>
-                <CardContent>
-                  <div className="text-2xl font-bold">2,847</div>
-                  <p className="text-xs text-muted-foreground">+12% from last month</p>
-                </CardContent>
-              </Card>
+              <StatCard
+                title="Total Donors"
+                value="2,847"
+                description="Active registered donors"
+                trend="up"
+                trendValue="12%"
+                icon={Users}
+              />
 
-              <Card>
-                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium">Active Requests</CardTitle>
-                  <Heart className="h-4 w-4 text-muted-foreground" />
-                </CardHeader>
-                <CardContent>
-                  <div className="text-2xl font-bold">23</div>
-                  <p className="text-xs text-muted-foreground">5 critical, 8 urgent</p>
-                </CardContent>
-              </Card>
+              <StatCard
+                title="Active Requests"
+                value="23"
+                description="5 critical, 8 urgent"
+                icon={Heart}
+              />
 
-              <Card>
-                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium">Blood Units</CardTitle>
-                  <Activity className="h-4 w-4 text-muted-foreground" />
-                </CardHeader>
-                <CardContent>
-                  <div className="text-2xl font-bold">1,456</div>
-                  <p className="text-xs text-muted-foreground">Available in stock</p>
-                </CardContent>
-              </Card>
+              <StatCard
+                title="Blood Units"
+                value="1,456"
+                description="Available in stock"
+                trend="up"
+                trendValue="8%"
+                icon={Droplet}
+              />
 
-              <Card>
-                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium">Today's Matches</CardTitle>
-                  <CheckCircle className="h-4 w-4 text-muted-foreground" />
-                </CardHeader>
-                <CardContent>
-                  <div className="text-2xl font-bold">18</div>
-                  <p className="text-xs text-muted-foreground">Successful matches</p>
-                </CardContent>
-              </Card>
+              <StatCard
+                title="Today's Matches"
+                value="18"
+                description="Successful matches"
+                trend="up"
+                trendValue="15%"
+                icon={CheckCircle}
+              />
             </div>
+
+            {/* Blood Type Inventory */}
+            <Card className="mt-6">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Droplet className="h-5 w-5 text-red-500" />
+                  Blood Type Inventory
+                </CardTitle>
+                <CardDescription>Current stock levels by blood type</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                  {[
+                    { type: 'A+', current: 85, max: 100, color: 'red' },
+                    { type: 'B+', current: 62, max: 100, color: 'blue' },
+                    { type: 'AB+', current: 23, max: 50, color: 'green' },
+                    { type: 'O+', current: 94, max: 100, color: 'purple' },
+                    { type: 'A-', current: 45, max: 80, color: 'red' },
+                    { type: 'B-', current: 18, max: 60, color: 'blue' },
+                    { type: 'AB-', current: 8, max: 30, color: 'green' },
+                    { type: 'O-', current: 76, max: 90, color: 'purple' }
+                  ].map((bloodType) => (
+                    <div key={bloodType.type} className="space-y-2">
+                      <div className="flex justify-between items-center">
+                        <span className="text-sm font-medium">{bloodType.type}</span>
+                        <span className="text-xs text-gray-500">{bloodType.current}/{bloodType.max}</span>
+                      </div>
+                      <ProgressBar
+                        value={bloodType.current}
+                        max={bloodType.max}
+                        color={bloodType.color}
+                        size="sm"
+                      />
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
 
             {/* Recent Activity */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
@@ -178,141 +252,242 @@ export default function HospitalDashboard() {
           </TabsContent>
 
           <TabsContent value="donors" className="space-y-6">
-            <Card>
-              <CardHeader>
-                <div className="flex justify-between items-center">
-                  <div>
-                    <CardTitle>Donor Management</CardTitle>
-                    <CardDescription>Manage registered blood donors</CardDescription>
-                  </div>
-                  <Button>
-                    <Plus className="h-4 w-4 mr-2" />
-                    Add Donor
-                  </Button>
-                </div>
-              </CardHeader>
-              <CardContent>
-                <div className="flex space-x-4 mb-6">
-                  <div className="flex-1 relative">
-                    <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
-                    <Input placeholder="Search donors..." className="pl-10" />
-                  </div>
-                  <Button variant="outline">
-                    <Filter className="h-4 w-4 mr-2" />
-                    Filter
-                  </Button>
-                </div>
-                
-                <div className="space-y-4">
-                  {Array.from({ length: 8 }).map((_, i) => (
-                    <div key={i} className="flex items-center justify-between p-4 border rounded-lg">
-                      <div className="flex items-center space-x-4">
-                        <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
-                          <Users className="h-5 w-5 text-blue-600" />
-                        </div>
-                        <div>
-                          <h4 className="font-medium">Sarah Johnson</h4>
-                          <p className="text-sm text-gray-500">sarah.j@email.com • (555) 123-4567</p>
-                        </div>
-                      </div>
-                      <div className="flex items-center space-x-4">
-                        <Badge variant="outline">A+</Badge>
-                        <div className="flex items-center text-sm text-gray-500">
-                          <MapPin className="h-4 w-4 mr-1" />
-                          2.3 km
-                        </div>
-                        <Badge className="bg-green-100 text-green-800">Available</Badge>
-                        <Button variant="outline" size="sm">Contact</Button>
-                      </div>
+            <DataList
+              title="Donor Management"
+              description="Manage registered blood donors"
+              items={Array.from({ length: 8 }).map((_, i) => ({
+                id: i,
+                name: `Sarah Johnson ${i + 1}`,
+                email: `sarah.j${i + 1}@email.com`,
+                phone: `(555) ${123 + i}-4567`,
+                bloodType: ['A+', 'B+', 'AB+', 'O+', 'A-', 'B-', 'AB-', 'O-'][i % 8],
+                distance: `${(2.3 + i * 0.5).toFixed(1)} km`,
+                status: i % 3 === 0 ? 'Available' : i % 3 === 1 ? 'Recent Donor' : 'Unavailable'
+              }))}
+              searchPlaceholder="Search donors by name, email, or blood type..."
+              onSearch={(query) => {
+                // Implement search filter logic here
+                console.log('Search donors:', query)
+              }}
+              onFilter={() => {
+                // Implement filter logic here
+                console.log('Filter donors clicked')
+              }}
+              onAdd={() => {
+                // Implement add donor functionality here
+                alert('Add Donor button clicked')
+              }}
+              addButtonText="Add Donor"
+              renderItem={(donor) => (
+                <>
+                  <div className="flex items-center space-x-4">
+                    <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
+                      <Users className="h-5 w-5 text-blue-600" />
                     </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
+                    <div>
+                      <h4 className="font-medium">{donor.name}</h4>
+                      <p className="text-sm text-gray-500">{donor.email} • {donor.phone}</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center space-x-4">
+                    <Badge variant="outline">{donor.bloodType}</Badge>
+                    <div className="flex items-center text-sm text-gray-500">
+                      <MapPin className="h-4 w-4 mr-1" />
+                      {donor.distance}
+                    </div>
+                    <Badge className={`${
+                      donor.status === 'Available' ? 'bg-green-100 text-green-800' :
+                      donor.status === 'Recent Donor' ? 'bg-blue-100 text-blue-800' :
+                      'bg-gray-100 text-gray-800'
+                    }`}>
+                      {donor.status}
+                    </Badge>
+                    <Button variant="outline" size="sm" className="hover:bg-blue-50">
+                      <Phone className="h-4 w-4 mr-2" />
+                      Contact
+                    </Button>
+                  </div>
+                </>
+              )}
+            />
           </TabsContent>
 
           <TabsContent value="recipients" className="space-y-6">
-            <Card>
-              <CardHeader>
-                <div className="flex justify-between items-center">
-                  <div>
-                    <CardTitle>Recipient Management</CardTitle>
-                    <CardDescription>Manage blood recipients and patients</CardDescription>
-                  </div>
-                  <Button>
-                    <Plus className="h-4 w-4 mr-2" />
-                    Add Recipient
-                  </Button>
-                </div>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  {Array.from({ length: 6 }).map((_, i) => (
-                    <div key={i} className="flex items-center justify-between p-4 border rounded-lg">
-                      <div className="flex items-center space-x-4">
-                        <div className="w-10 h-10 bg-red-100 rounded-full flex items-center justify-center">
-                          <Heart className="h-5 w-5 text-red-600" />
-                        </div>
-                        <div>
-                          <h4 className="font-medium">Patient #2024-{String(i + 1).padStart(3, '0')}</h4>
-                          <p className="text-sm text-gray-500">Emergency Room • Dr. Smith</p>
-                        </div>
-                      </div>
-                      <div className="flex items-center space-x-4">
-                        <Badge variant="outline">O-</Badge>
-                        <div className="text-sm text-gray-500">2 units needed</div>
-                        <Badge variant="destructive">Critical</Badge>
-                        <Button size="sm">
-                          <Phone className="h-4 w-4 mr-2" />
-                          Contact
-                        </Button>
-                      </div>
+            <DataList
+              title="Recipient Management"
+              description="Manage blood recipients and patients"
+              items={Array.from({ length: 6 }).map((_, i) => ({
+                id: i,
+                patientId: `2024-${String(i + 1).padStart(3, '0')}`,
+                department: ['Emergency Room', 'ICU', 'Surgery', 'Cardiology', 'Oncology', 'Pediatrics'][i % 6],
+                doctor: ['Dr. Smith', 'Dr. Johnson', 'Dr. Williams', 'Dr. Brown', 'Dr. Davis', 'Dr. Miller'][i % 6],
+                bloodType: ['A+', 'B+', 'AB+', 'O+', 'A-', 'B-'][i % 6],
+                unitsNeeded: 2 + (i % 3),
+                urgency: i % 3 === 0 ? 'Critical' : i % 3 === 1 ? 'Urgent' : 'Normal',
+                timeAgo: `${30 + i * 15} min ago`
+              }))}
+              searchPlaceholder="Search recipients by patient ID, department, or blood type..."
+              onSearch={(query) => {
+                // Implement search filter logic here
+                console.log('Search recipients:', query)
+              }}
+              onFilter={() => {
+                // Implement filter logic here
+                console.log('Filter recipients clicked')
+              }}
+              onAdd={() => {
+                // Implement add recipient functionality here
+                alert('Add Recipient button clicked')
+              }}
+              addButtonText="Add Recipient"
+              renderItem={(recipient) => (
+                <>
+                  <div className="flex items-center space-x-4">
+                    <div className="w-10 h-10 bg-red-100 rounded-full flex items-center justify-center">
+                      <Heart className="h-5 w-5 text-red-600" />
                     </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
+                    <div>
+                      <h4 className="font-medium">Patient #{recipient.patientId}</h4>
+                      <p className="text-sm text-gray-500">{recipient.department} • {recipient.doctor}</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center space-x-4">
+                    <Badge variant="outline">{recipient.bloodType}</Badge>
+                    <div className="text-sm text-gray-500">{recipient.unitsNeeded} units needed</div>
+                    <Badge className={`${
+                      recipient.urgency === 'Critical' ? 'bg-red-100 text-red-800' :
+                      recipient.urgency === 'Urgent' ? 'bg-orange-100 text-orange-800' :
+                      'bg-yellow-100 text-yellow-800'
+                    }`}>
+                      {recipient.urgency}
+                    </Badge>
+                    <div className="text-xs text-gray-500">{recipient.timeAgo}</div>
+                    <Button size="sm" className={`${
+                      recipient.urgency === 'Critical' ? 'bg-red-600 hover:bg-red-700' : 'bg-blue-600 hover:bg-blue-700'
+                    }`}>
+                      <Phone className="h-4 w-4 mr-2" />
+                      Contact
+                    </Button>
+                  </div>
+                </>
+              )}
+            />
           </TabsContent>
 
           <TabsContent value="requests" className="space-y-6">
-            <Card>
-              <CardHeader>
-                <CardTitle>Blood Request Management</CardTitle>
-                <CardDescription>Active and pending blood donation requests</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  {Array.from({ length: 10 }).map((_, i) => (
-                    <div key={i} className="flex items-center justify-between p-4 border rounded-lg">
-                      <div className="flex items-center space-x-4">
-                        <div className="w-10 h-10 bg-orange-100 rounded-full flex items-center justify-center">
-                          <Clock className="h-5 w-5 text-orange-600" />
-                        </div>
-                        <div>
-                          <h4 className="font-medium">Request #{2024}{String(i + 1).padStart(4, '0')}</h4>
-                          <p className="text-sm text-gray-500">Submitted 2 hours ago</p>
-                        </div>
-                      </div>
-                      <div className="flex items-center space-x-4">
-                        <Badge variant="outline">B+</Badge>
-                        <div className="text-sm text-gray-500">3 units</div>
-                        <Badge className="bg-orange-100 text-orange-800">Pending</Badge>
-                        <div className="flex space-x-2">
-                          <Button size="sm" variant="outline">
+            <DataList
+              title="Blood Request Management"
+              description="Active and pending blood donation requests"
+              items={Array.from({ length: 10 }).map((_, i) => ({
+                id: i,
+                requestId: `${2024}${String(i + 1).padStart(4, '0')}`,
+                submittedTime: `${2 + i} hours ago`,
+                bloodType: ['A+', 'B+', 'AB+', 'O+', 'A-', 'B-', 'AB-', 'O-'][i % 8],
+                unitsRequested: 2 + (i % 4),
+                status: i % 4 === 0 ? 'Pending' : i % 4 === 1 ? 'Approved' : i % 4 === 2 ? 'Processing' : 'Completed',
+                department: ['Emergency Room', 'Surgery', 'ICU', 'Cardiology', 'Oncology'][i % 5],
+                priority: i % 3 === 0 ? 'High' : i % 3 === 1 ? 'Medium' : 'Low'
+              }))}
+              searchPlaceholder="Search requests by ID, blood type, or department..."
+              onSearch={(query) => {
+                // Implement search filter logic here
+                console.log('Search requests:', query)
+              }}
+              onFilter={() => {
+                // Implement filter logic here
+                console.log('Filter requests clicked')
+              }}
+              onAdd={() => {
+                // Implement add request functionality here
+                alert('New Request button clicked')
+              }}
+              addButtonText="New Request"
+              renderItem={(request) => (
+                <>
+                  <div className="flex items-center space-x-4">
+                    <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
+                      request.status === 'Pending' ? 'bg-orange-100' :
+                      request.status === 'Approved' ? 'bg-green-100' :
+                      request.status === 'Processing' ? 'bg-blue-100' :
+                      'bg-gray-100'
+                    }`}>
+                      <Clock className={`h-5 w-5 ${
+                        request.status === 'Pending' ? 'text-orange-600' :
+                        request.status === 'Approved' ? 'text-green-600' :
+                        request.status === 'Processing' ? 'text-blue-600' :
+                        'text-gray-600'
+                      }`} />
+                    </div>
+                    <div>
+                      <h4 className="font-medium">Request #{request.requestId}</h4>
+                      <p className="text-sm text-gray-500">{request.department} • {request.submittedTime}</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center space-x-4">
+                    <Badge variant="outline">{request.bloodType}</Badge>
+                    <div className="text-sm text-gray-500">{request.unitsRequested} units</div>
+                    <Badge className={`${
+                      request.status === 'Pending' ? 'bg-orange-100 text-orange-800' :
+                      request.status === 'Approved' ? 'bg-green-100 text-green-800' :
+                      request.status === 'Processing' ? 'bg-blue-100 text-blue-800' :
+                      'bg-gray-100 text-gray-800'
+                    }`}>
+                      {request.status}
+                    </Badge>
+                    <Badge variant="outline" className={`${
+                      request.priority === 'High' ? 'border-red-300 text-red-700' :
+                      request.priority === 'Medium' ? 'border-yellow-300 text-yellow-700' :
+                      'border-green-300 text-green-700'
+                    }`}>
+                      {request.priority}
+                    </Badge>
+                    <div className="flex space-x-2">
+                      {request.status === 'Pending' && (
+                        <>
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            className="hover:bg-green-50"
+                            onClick={() => {
+                              // Implement approve request functionality here
+                              alert(`Request #${request.requestId} approved`)
+                            }}
+                          >
                             <CheckCircle className="h-4 w-4 mr-2" />
                             Approve
                           </Button>
-                          <Button size="sm" variant="outline">
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            className="hover:bg-red-50"
+                            onClick={() => {
+                              // Implement decline request functionality here
+                              alert(`Request #${request.requestId} declined`)
+                            }}
+                          >
                             <XCircle className="h-4 w-4 mr-2" />
                             Decline
                           </Button>
-                        </div>
-                      </div>
+                        </>
+                      )}
+                      {request.status === 'Approved' && (
+                        <Button
+                          size="sm"
+                          className="bg-blue-600 hover:bg-blue-700"
+                          onClick={() => {
+                            // Implement contact donor functionality here
+                            alert(`Contacting donor for request #${request.requestId}`)
+                          }}
+                        >
+                          <Phone className="h-4 w-4 mr-2" />
+                          Contact Donor
+                        </Button>
+                      )}
                     </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
+                  </div>
+                </>
+              )}
+            />
           </TabsContent>
         </Tabs>
       </div>
